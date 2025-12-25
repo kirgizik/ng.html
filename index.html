@@ -116,71 +116,17 @@ font-family:'Georgia', serif;
 }
 
 .serious-section h2 {
-font-size:3rem; /* чуть меньше поздравления */
+font-size:3rem;
 font-weight:700;
 color:#fff;
 margin-bottom:2rem;
 }
 
 .serious-section p {
-font-size:55px; /* увеличенный текст в 3-4 раза */
+font-size:55px;
 line-height:1.4;
 max-width:1100px;
 margin:0 auto;
-}
-
-/* --- Новый виноватый текст --- */
-.apology-section {
-width: calc(100% - 1cm);
-max-width:1200px;
-margin: 4rem auto;
-color:#fff;
-text-align:center;
-font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-font-size: 28px;
-line-height: 1.5;
-padding: 1.5rem;
-background: rgba(255, 255, 255, 0.08);
-border-radius: 16px;
-border-left: 4px solid rgba(255, 100, 100, 0.5);
-border-right: 4px solid rgba(255, 100, 100, 0.5);
-font-style: italic;
-position: relative;
-}
-
-.apology-section::before {
-content: "😔";
-position: absolute;
-left: 20px;
-top: 50%;
-transform: translateY(-50%);
-font-size: 32px;
-}
-
-.apology-section::after {
-content: "😔";
-position: absolute;
-right: 20px;
-top: 50%;
-transform: translateY(-50%);
-font-size: 32px;
-}
-
-.telegram-link {
-color: #ff6b6b;
-font-weight: bold;
-text-decoration: none;
-border-bottom: 2px dashed #ff6b6b;
-padding: 2px 4px;
-transition: all 0.3s ease;
-cursor: pointer;
-}
-
-.telegram-link:hover {
-color: #ff9999;
-border-bottom: 2px solid #ff9999;
-background: rgba(255, 255, 255, 0.05);
-border-radius: 4px;
 }
 
 /* --- Новый блок с вопросом --- */
@@ -220,22 +166,12 @@ text-decoration: none;
 color: white;
 }
 
-.questions-btn:hover {
-background: rgba(255, 255, 255, 0.25);
-transform: scale(1.1);
-border-color: rgba(255, 255, 255, 0.5);
-}
-
 /* --- Адаптив --- */
 @media (max-width:1200px){
 .serious-section p { font-size:45px; }
-.apology-section { font-size: 24px; }
 }
 @media (max-width:900px){
 .serious-section p { font-size:35px; }
-.apology-section { font-size: 20px; }
-.apology-section::before,
-.apology-section::after { display: none; }
 .questions-text { font-size: 16px; }
 .questions-btn { width: 70px; height: 70px; font-size: 32px; }
 }
@@ -246,7 +182,6 @@ border-color: rgba(255, 255, 255, 0.5);
 .greeting-section p { font-size:14px; }
 .serious-section h2 { font-size:2.2rem; margin-bottom:2rem; }
 .serious-section p { font-size:28px; line-height:1.3; }
-.apology-section { font-size: 18px; padding: 1rem; margin: 3rem auto; }
 .questions-section { margin: 4rem auto 2rem auto; }
 .questions-text { font-size: 15px; }
 .questions-btn { width: 60px; height: 60px; font-size: 28px; margin-top: 8px; }
@@ -258,6 +193,7 @@ border-color: rgba(255, 255, 255, 0.5);
 <canvas id="fireworks"></canvas>
 
 <div class="page">
+
   <!-- Стартовый экран -->
   <div class="start-screen">
     <h1>С Новым<br>годом!</h1>
@@ -282,11 +218,13 @@ border-color: rgba(255, 255, 255, 0.5);
     </p>
   </div>
 
-  <!-- Новый виноватый текст -->
-  <div class="apology-section" id="apology">
-    К сожалению посылка приедет ток вечером, сорян. Но 
-    <span class="telegram-link" id="telegramLink">@s_ng_danik</span> 
-    скинет тебе все необходимое когда она приедет
+  <!-- ЗАМЕНА блока с «посылка» на ссылку с размером 20px -->
+  <div style="width:100%; display:flex; justify-content:center; margin:4rem 0;">
+    <a href="https://dostavka.yandex.ru/route/8d56a664-80ad-4257-a132-f50f917837e8"
+       target="_blank"
+       style="font-family:'Georgia', serif; font-size:20px; line-height:1.4; color:#ffb4b4; text-decoration:underline;">
+      https://dostavka.yandex.ru/route/8d56a664-80ad-4257-a132-f50f917837e8
+    </a>
   </div>
 
   <!-- Новый блок с вопросом -->
@@ -294,6 +232,12 @@ border-color: rgba(255, 255, 255, 0.5);
     <div class="questions-text">Если есть вопросы, тыкай сюда👇</div>
     <a href="https://kirgizik.github.io/3ng.html/" class="questions-btn" id="questionBtn">❓</a>
   </div>
+
+  <!-- Фото-силуэт для кнопки -->
+  <img id="silhouettePhoto" 
+       src="https://i.postimg.cc/vZ6trg0J/IMG-20251223-151053-223.jpg" 
+       style="position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; pointer-events:none; z-index:15; transition:opacity 1s ease, transform 1s ease;">
+
 </div>
 
 <script>
@@ -436,7 +380,7 @@ class FireworkParticle {
   draw() { ctxFire.globalAlpha = this.alpha; ctxFire.fillStyle = this.color; ctxFire.beginPath(); ctxFire.arc(this.x,this.y,this.size,0,Math.PI*2); ctxFire.fill(); ctxFire.globalAlpha = 1; }  
 }  
 function createFireworks(x,y){  
-  const colors = ['#ff4b5c','#ffb400','#1fab89','#4a00e0','#ff6f91','#00f5d4'];  
+  const colors = ['#ff4b5c','#ffb400','#1fab89','#4a00e0','#ff6f91','#00f5d4'];
   for(let i=0;i<50;i++) fireworks.push(new FireworkParticle(x,y, colors[Math.floor(Math.random()*colors.length)]));  
 }  
 function launchMultipleFireworks() {  
@@ -449,7 +393,11 @@ function launchMultipleFireworks() {
 }  
 function animateFireworks() {  
   ctxFire.clearRect(0,0,W,H);  
-  fireworks.forEach((f,i)=>{ f.update(); f.draw(); if(f.alpha<=0) fireworks.splice(i,1); });  
+  fireworks.forEach((f,i)=>{ 
+    f.update(); 
+    f.draw(); 
+    if(f.alpha<=0) fireworks.splice(i,1); 
+  });  
   requestAnimationFrame(animateFireworks);  
 }  
 animateFireworks();  
@@ -458,14 +406,17 @@ animateFireworks();
 document.getElementById('celebrateBtn').addEventListener('click', ()=>{  
   launchMultipleFireworks();  
   document.getElementById('greet').classList.add('show');  
+
+  // --- Появление фото-силуэта ---
+  const photo = document.getElementById('silhouettePhoto');
+  photo.style.opacity = '0.2'; // прозрачность 20%
+  photo.style.transform = 'scale(1.05)';
+  photo.style.transition = 'opacity 1s ease, transform 1s ease';
+  setTimeout(()=>{ 
+    photo.style.opacity = '0'; 
+    photo.style.transform = 'scale(1)'; 
+  }, 4000); // фото исчезает через 4 секунды
 });  
-
-// --- Обработчик клика по телеграм ссылке ---
-document.getElementById('telegramLink').addEventListener('click', ()=>{  
-  window.open('https://t.me/s_ng_danik', '_blank');  
-});
-
-// --- Убрал обработчик кнопки вопроса, так как теперь это обычная ссылка ---
 </script>
 </body>
 </html>
