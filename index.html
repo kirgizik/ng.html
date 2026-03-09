@@ -406,6 +406,378 @@ document.getElementById('celebrateBtn').addEventListener('click', ()=>{
 });  
 </script>
 </body>
+</html>align-items:center;
+justify-content:flex-start;
+padding-top:5%;
+text-align:center;
+color:#fff;
+}
+
+.start-screen h1 {
+font-family:'Playfair Display', serif;
+font-weight:900;
+line-height:1.2;
+font-size:6rem;
+margin-bottom:6rem;
+}
+
+/* --- Кнопка --- */
+.celebrate-btn {
+padding: 1rem 2rem;
+font-size: 1.5rem;
+font-weight:700;
+font-family:'Playfair Display', serif;
+color:#fff;
+background: rgba(255,255,255,0.2);
+border:2px solid rgba(255,255,255,0.5);
+border-radius:12px;
+cursor:pointer;
+transition: all 0.3s ease;
+margin-bottom:10rem;
+}
+.celebrate-btn:hover {
+background: rgba(255,255,255,0.35);
+transform: scale(1.05);
+}
+
+/* --- Поздравительная секция --- */
+.greeting-section {
+width:calc(100% - 1cm);
+max-width:1200px;
+margin:0 auto;
+border-radius:24px;
+backdrop-filter: blur(10px) saturate(120%);
+-webkit-backdrop-filter: blur(10px) saturate(120%);
+background: rgba(255,255,255,0.12);
+color:#fff;
+font-family:'Georgia', serif;
+box-shadow:0 8px 40px rgba(0,0,0,0.4);
+margin-bottom:3rem;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding: 5% 2%;
+height:auto;
+
+opacity:0;
+transform: translateY(150px);
+transition: transform 1s ease, opacity 1s ease;
+}
+.greeting-section.show {
+opacity:1;
+transform: translateY(0);
+}
+
+.greeting-section p {
+margin-bottom:1rem;
+line-height:1.4;
+font-size:16px;
+text-align:center;
+}
+
+/* --- Серьёзный текст --- */
+.serious-section {
+width: calc(100% - 1cm);
+max-width:1200px;
+margin:5rem auto;
+color:#fff;
+text-align:center;
+font-family:'Georgia', serif;
+}
+
+.serious-section h2 {
+font-size:3rem;
+font-weight:700;
+color:#fff;
+margin-bottom:2rem;
+}
+
+.serious-section p {
+font-size:55px;
+line-height:1.4;
+max-width:1100px;
+margin:0 auto;
+}
+
+/* --- Новый блок с вопросом --- */
+.questions-section {
+width: calc(100% - 1cm);
+max-width:1200px;
+margin: 6rem auto 3rem auto;
+color:#fff;
+text-align:center;
+font-family:'Inter', system-ui, Arial, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.questions-text {
+font-size: 18px;
+line-height: 1.5;
+margin-bottom: 0;
+color: rgba(255, 255, 255, 0.9);
+}
+
+.questions-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background: rgba(255, 255, 255, 0.15);
+border: 2px solid rgba(255, 255, 255, 0.3);
+font-size: 36px;
+cursor: pointer;
+transition: all 0.3s ease;
+margin-top: 10px;
+text-decoration: none;
+color: white;
+}
+
+/* --- Адаптив --- */
+@media (max-width:1200px){
+.serious-section p { font-size:45px; }
+}
+@media (max-width:900px){
+.serious-section p { font-size:35px; }
+.questions-text { font-size: 16px; }
+.questions-btn { width: 70px; height: 70px; font-size: 32px; }
+}
+@media (max-width:700px){
+.start-screen h1 { font-size:5rem; margin-bottom:5rem; }
+.celebrate-btn { font-size:1.2rem; padding:0.8rem 1.5rem; margin-bottom:6rem; }
+.greeting-section { padding:5% 1.5rem; border-radius:16px; }
+.greeting-section p { font-size:14px; }
+.serious-section h2 { font-size:2.2rem; margin-bottom:2rem; }
+.serious-section p { font-size:28px; line-height:1.3; }
+.questions-section { margin: 4rem auto 2rem auto; }
+.questions-text { font-size: 15px; }
+.questions-btn { width: 60px; height: 60px; font-size: 28px; margin-top: 8px; }
+}
+</style>
+</head>
+<body>
+<canvas id="snow"></canvas>
+<canvas id="fireworks"></canvas>
+
+<div class="page">
+
+  <!-- Стартовый экран -->
+  <div class="start-screen">
+    <h1>С Новым<br>годом!</h1>
+    <button class="celebrate-btn" id="celebrateBtn">🎉Отпраздновать🎉</button>
+  </div>
+
+  <!-- Поздравительная секция -->
+  <div class="greeting-section" id="greet">
+    <p>Конечно, вот вариант поздравления средней длины, тёплый и уважительный, с пожеланиями, которые близки человеку в годах.</p>
+    <p>Дорогой(ая) [Имя]!</p>
+    <p>От всей души поздравляю Вас с Новым годом!</p>
+    <p>Пусть этот наступающий год принесёт в Ваш дом спокойствие, уют и благополучие. Желаю, чтобы здоровье было крепким, душа – светлой, а сердце – согретым вниманием и заботой близких.</p>
+    <p>Пусть каждый новый день дарит Вам хорошее настроение, приятные воспоминания и маленькие радости. Пусть рядом всегда будут те, кто дорог, а в душе живёт мудрая уверенность в завтрашнем дне.</p>
+    <p>С Новым годом! Мира, тепла и душевного спокойствия в Вашем доме.</p>
+  </div>
+
+  <!-- Серьёзный текст -->
+  <div class="serious-section">
+    <h2 id="seriousTitle">А теперь к серьёзному</h2>
+    <p id="seriousText">
+      У меня есть твои голые фотографии с onlyfans. Если ты не хочешь, чтобы я их опубликовал, успей забрать посылку с бомбой до 31 декабря
+    </p>
+  </div>
+
+  <!-- ЗАМЕНА блока с «посылка» на ссылку с размером 20px -->
+  <div style="width:100%; display:flex; justify-content:center; margin:4rem 0;">
+    <a href="https://dostavka.yandex.ru/route/8d56a664-80ad-4257-a132-f50f917837e8"
+       target="_blank"
+       style="font-family:'Georgia', serif; font-size:20px; line-height:1.4; color:#ffb4b4; text-decoration:underline;">
+      https://dostavka.yandex.ru/route/8d56a664-80ad-4257-a132-f50f917837e8
+    </a>
+  </div>
+
+  <!-- Новый блок с вопросом -->
+  <div class="questions-section">
+    <div class="questions-text">Если есть вопросы, тыкай сюда👇</div>
+    <a href="https://kirgizik.github.io/3ng.html/" class="questions-btn" id="questionBtn">❓</a>
+  </div>
+
+
+</div>
+
+<script>
+// --- снег ---
+const canvasSnow = document.getElementById('snow');    
+const ctxSnow = canvasSnow.getContext('2d', { alpha: true });    
+let DPR = Math.max(1, window.devicePixelRatio || 1);    
+let W = window.innerWidth;    
+let H = window.innerHeight;    
+function resizeCanvas() {    
+  DPR = Math.max(1, window.devicePixelRatio || 1);    
+  W = window.innerWidth;    
+  H = window.innerHeight;    
+  canvasSnow.width = Math.floor(W * DPR);    
+  canvasSnow.height = Math.floor(H * DPR);    
+  canvasSnow.style.width = W + 'px';    
+  canvasSnow.style.height = H + 'px';    
+  ctxSnow.setTransform(DPR,0,0,DPR,0,0);    
+}    
+resizeCanvas();    
+window.addEventListener('resize', resizeCanvas);    
+
+const layers = [    
+  { count: 30, sizeRange: [8,18], speedRange: [0.2,0.6], depth: 0.3 },    
+  { count: 40, sizeRange: [12,28], speedRange: [0.4,1.0], depth: 0.6 },    
+  { count: 30, sizeRange: [22,44], speedRange: [0.6,1.6], depth: 1.0 }    
+];    
+let flakes = [];    
+let mouse = { x: W/2, y: H/2 };    
+window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });    
+window.addEventListener('touchmove', (e) => { if(e.touches && e.touches[0]) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } }, { passive:true });    
+function rand(min, max){ return Math.random()*(max-min)+min; }    
+function createFlakes(){    
+  flakes = [];    
+  layers.forEach((layer) => {    
+    for(let i=0;i<layer.count;i++){    
+      const size = rand(layer.sizeRange[0], layer.sizeRange[1]);    
+      flakes.push({    
+        x: rand(0, W), y: rand(-H, H), size, baseSize:size,    
+        speed: rand(layer.speedRange[0], layer.speedRange[1]),    
+        angle: rand(0, Math.PI*2), angSpeed: rand(0.001, 0.006),    
+        depth: layer.depth, drift: rand(-0.5,0.5), alpha: rand(0.03, 0.15)    
+      });    
+    }    
+  });    
+}    
+createFlakes();    
+function drawSnow(){    
+  ctxSnow.clearRect(0,0,W,H);    
+  const mx = (mouse.x - W/2) / (W/2);    
+  const my = (mouse.y - H/2) / (H/2);    
+  for (let f of flakes){    
+    const px = mx * 30 * f.depth;    
+    const py = my * 20 * f.depth;    
+    f.angle += f.angSpeed;    
+    f.x += Math.sin(f.angle) * 0.4 + f.drift * 0.2 + px * 0.01;    
+    f.y += f.speed + py*0.02;    
+    if (f.y > H + f.size) { f.y = -f.size - rand(0, H*0.2); f.x = rand(0, W); }    
+    if (f.x > W + f.size) f.x = -f.size;    
+    if (f.x < -f.size) f.x = W + f.size;    
+    const ripple = Math.sin(f.angle*1.5) * (f.depth*0.6);    
+    const drawSize = Math.max(2, f.baseSize + ripple);    
+    ctxSnow.save();    
+    ctxSnow.globalAlpha = f.alpha;    
+    if (f.baseSize > 26){    
+      const g = ctxSnow.createRadialGradient(f.x, f.y, drawSize*0.2, f.x, f.y, drawSize);    
+      g.addColorStop(0, "rgba(255,255,255,0.95)");    
+      g.addColorStop(0.5, "rgba(255,255,255,0.6)");    
+      g.addColorStop(1, "rgba(255,255,255,0.02)");    
+      ctxSnow.fillStyle = g;    
+      ctxSnow.beginPath();    
+      ctxSnow.arc(f.x, f.y, drawSize, 0, Math.PI*2);    
+      ctxSnow.fill();    
+    } else {    
+      ctxSnow.font = `${Math.round(drawSize)}px "Segoe UI Emoji", "Apple Color Emoji", Arial`;    
+      ctxSnow.textAlign = "center";    
+      ctxSnow.textBaseline = "middle";    
+      ctxSnow.fillStyle = "white";    
+      ctxSnow.fillText("❄︎", f.x, f.y);    
+    }    
+    ctxSnow.restore();    
+  }    
+  requestAnimationFrame(drawSnow);    
+}    
+drawSnow();  
+
+// --- Динамический подбор размера поздравления ---
+function resizeGreetingSection() {  
+  const greet = document.querySelector('.greeting-section');  
+  const width = greet.offsetWidth;  
+  const targetHeight = width * 1.75;  
+  greet.style.height = targetHeight + 'px';  
+  const ps = greet.querySelectorAll('p');  
+  let fontSize = 12;  
+  let step = 1;  
+  let totalHeight = 0;  
+  do {  
+    ps.forEach(p => { p.style.fontSize = fontSize + 'px'; p.style.lineHeight = (fontSize*1.4)+'px'; });  
+    totalHeight = 0;  
+    ps.forEach(p => { totalHeight += p.offsetHeight; });  
+    fontSize += step;  
+  } while(totalHeight < targetHeight*0.85 && fontSize < 40);   
+  fontSize -= step;  
+  fontSize -= 1;  
+  ps.forEach(p => { p.style.fontSize = fontSize + 'px'; p.style.lineHeight = (fontSize*1.4)+'px'; });  
+}  
+window.addEventListener('resize', resizeGreetingSection);  
+resizeGreetingSection();  
+
+// --- Анимация поздравительной секции ---
+function animateGreetingSection() {  
+  const greet = document.getElementById('greet');  
+  const triggerPoint = window.innerHeight * 0.8;  
+  const rect = greet.getBoundingClientRect();  
+  if(rect.top < triggerPoint) {  
+    greet.classList.add('show');  
+  } else {  
+    greet.classList.remove('show');  
+  }  
+}  
+window.addEventListener('scroll', animateGreetingSection);  
+animateGreetingSection();  
+
+// --- Салют ---
+const canvasFire = document.getElementById('fireworks');  
+const ctxFire = canvasFire.getContext('2d');  
+canvasFire.width = W;  
+canvasFire.height = H;  
+let fireworks = [];  
+class FireworkParticle {  
+  constructor(x, y, color) {  
+    this.x = x; this.y = y;  
+    this.vx = (Math.random()-0.5)*6;  
+    this.vy = (Math.random()-1.5)*8;  
+    this.alpha = 1;  
+    this.color = color;  
+    this.size = Math.random()*3+2;  
+  }  
+  update() { this.x += this.vx; this.y += this.vy; this.vy += 0.05; this.alpha -= 0.02; }  
+  draw() { ctxFire.globalAlpha = this.alpha; ctxFire.fillStyle = this.color; ctxFire.beginPath(); ctxFire.arc(this.x,this.y,this.size,0,Math.PI*2); ctxFire.fill(); ctxFire.globalAlpha = 1; }  
+}  
+function createFireworks(x,y){  
+  const colors = ['#ff4b5c','#ffb400','#1fab89','#4a00e0','#ff6f91','#00f5d4'];
+  for(let i=0;i<50;i++) fireworks.push(new FireworkParticle(x,y, colors[Math.floor(Math.random()*colors.length)]));  
+}  
+function launchMultipleFireworks() {  
+  const count = Math.floor(Math.random()*4)+2;  
+  for(let i=0;i<count;i++){  
+    const x = Math.random()*W;  
+    const y = H*0.7 - Math.random()*100;  
+    createFireworks(x,y);  
+  }  
+}  
+function animateFireworks() {  
+  ctxFire.clearRect(0,0,W,H);  
+  fireworks.forEach((f,i)=>{ 
+    f.update(); 
+    f.draw(); 
+    if(f.alpha<=0) fireworks.splice(i,1); 
+  });  
+  requestAnimationFrame(animateFireworks);  
+}  
+animateFireworks();  
+
+// --- Обработчик кнопки празднования ---
+document.getElementById('celebrateBtn').addEventListener('click', ()=>{  
+  launchMultipleFireworks();  
+  document.getElementById('greet').classList.add('show');  
+
+});  
+</script>
+</body>
 </html>Snow.fill();    
     } else {    
       ctxSnow.font = `${Math.round(drawSize)}px "Segoe UI Emoji", "Apple Color Emoji", Arial`;    
