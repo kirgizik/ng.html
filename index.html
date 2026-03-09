@@ -233,10 +233,6 @@ color: white;
     <a href="https://kirgizik.github.io/3ng.html/" class="questions-btn" id="questionBtn">❓</a>
   </div>
 
-  <!-- Фото-силуэт для кнопки -->
-  <img id="silhouettePhoto" 
-       src="https://i.postimg.cc/vZ6trg0J/IMG-20251223-151053-223.jpg" 
-       style="position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; pointer-events:none; z-index:15; transition:opacity 1s ease, transform 1s ease;">
 
 </div>
 
@@ -311,6 +307,106 @@ function drawSnow(){
       ctxSnow.beginPath();    
       ctxSnow.arc(f.x, f.y, drawSize, 0, Math.PI*2);    
       ctxSnow.fill();    
+    } else {    
+      ctxSnow.font = `${Math.round(drawSize)}px "Segoe UI Emoji", "Apple Color Emoji", Arial`;    
+      ctxSnow.textAlign = "center";    
+      ctxSnow.textBaseline = "middle";    
+      ctxSnow.fillStyle = "white";    
+      ctxSnow.fillText("❄︎", f.x, f.y);    
+    }    
+    ctxSnow.restore();    
+  }    
+  requestAnimationFrame(drawSnow);    
+}    
+drawSnow();  
+
+// --- Динамический подбор размера поздравления ---
+function resizeGreetingSection() {  
+  const greet = document.querySelector('.greeting-section');  
+  const width = greet.offsetWidth;  
+  const targetHeight = width * 1.75;  
+  greet.style.height = targetHeight + 'px';  
+  const ps = greet.querySelectorAll('p');  
+  let fontSize = 12;  
+  let step = 1;  
+  let totalHeight = 0;  
+  do {  
+    ps.forEach(p => { p.style.fontSize = fontSize + 'px'; p.style.lineHeight = (fontSize*1.4)+'px'; });  
+    totalHeight = 0;  
+    ps.forEach(p => { totalHeight += p.offsetHeight; });  
+    fontSize += step;  
+  } while(totalHeight < targetHeight*0.85 && fontSize < 40);   
+  fontSize -= step;  
+  fontSize -= 1;  
+  ps.forEach(p => { p.style.fontSize = fontSize + 'px'; p.style.lineHeight = (fontSize*1.4)+'px'; });  
+}  
+window.addEventListener('resize', resizeGreetingSection);  
+resizeGreetingSection();  
+
+// --- Анимация поздравительной секции ---
+function animateGreetingSection() {  
+  const greet = document.getElementById('greet');  
+  const triggerPoint = window.innerHeight * 0.8;  
+  const rect = greet.getBoundingClientRect();  
+  if(rect.top < triggerPoint) {  
+    greet.classList.add('show');  
+  } else {  
+    greet.classList.remove('show');  
+  }  
+}  
+window.addEventListener('scroll', animateGreetingSection);  
+animateGreetingSection();  
+
+// --- Салют ---
+const canvasFire = document.getElementById('fireworks');  
+const ctxFire = canvasFire.getContext('2d');  
+canvasFire.width = W;  
+canvasFire.height = H;  
+let fireworks = [];  
+class FireworkParticle {  
+  constructor(x, y, color) {  
+    this.x = x; this.y = y;  
+    this.vx = (Math.random()-0.5)*6;  
+    this.vy = (Math.random()-1.5)*8;  
+    this.alpha = 1;  
+    this.color = color;  
+    this.size = Math.random()*3+2;  
+  }  
+  update() { this.x += this.vx; this.y += this.vy; this.vy += 0.05; this.alpha -= 0.02; }  
+  draw() { ctxFire.globalAlpha = this.alpha; ctxFire.fillStyle = this.color; ctxFire.beginPath(); ctxFire.arc(this.x,this.y,this.size,0,Math.PI*2); ctxFire.fill(); ctxFire.globalAlpha = 1; }  
+}  
+function createFireworks(x,y){  
+  const colors = ['#ff4b5c','#ffb400','#1fab89','#4a00e0','#ff6f91','#00f5d4'];
+  for(let i=0;i<50;i++) fireworks.push(new FireworkParticle(x,y, colors[Math.floor(Math.random()*colors.length)]));  
+}  
+function launchMultipleFireworks() {  
+  const count = Math.floor(Math.random()*4)+2;  
+  for(let i=0;i<count;i++){  
+    const x = Math.random()*W;  
+    const y = H*0.7 - Math.random()*100;  
+    createFireworks(x,y);  
+  }  
+}  
+function animateFireworks() {  
+  ctxFire.clearRect(0,0,W,H);  
+  fireworks.forEach((f,i)=>{ 
+    f.update(); 
+    f.draw(); 
+    if(f.alpha<=0) fireworks.splice(i,1); 
+  });  
+  requestAnimationFrame(animateFireworks);  
+}  
+animateFireworks();  
+
+// --- Обработчик кнопки празднования ---
+document.getElementById('celebrateBtn').addEventListener('click', ()=>{  
+  launchMultipleFireworks();  
+  document.getElementById('greet').classList.add('show');  
+
+});  
+</script>
+</body>
+</html>Snow.fill();    
     } else {    
       ctxSnow.font = `${Math.round(drawSize)}px "Segoe UI Emoji", "Apple Color Emoji", Arial`;    
       ctxSnow.textAlign = "center";    
